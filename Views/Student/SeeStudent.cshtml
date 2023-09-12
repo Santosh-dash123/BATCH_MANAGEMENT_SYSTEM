@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApplication1.Models.SEE_SPECIFIC_STUDENTS_Result>
+
+@{
+    ViewBag.Title = "SeeStudent";
+}
+
+<h2 class="text-success text-center mb-2">LIST OF SPECIFIC STUDENTS</h2>
+@*<div class="d-flex justify-content-end text-black mb-2 mt-2" style="font-size : 20px;">
+    Welcome @Session["UserName"]
+</div>*@
+<div class="d-flex justify-content-between mb-2">
+    @Html.ActionLink("See All Batch", "See_All_Batch", "Batch", "", new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Back To Home", "Course_List", "Course", "", new { @class = "btn btn-outline-danger" })
+</div>
+
+<hr/>
+<div class="text-danger text-uppercase text-center fs-4" style="color : brown;">
+    @ViewBag.no_of_student_present
+</div>
+<hr/>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BATCH_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STUDENT_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STUDENT_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STUDENT_AGE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STUDENT_EMAILID)
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BATCH_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STUDENT_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STUDENT_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STUDENT_AGE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STUDENT_EMAILID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditStudent", new { id = item.STUDENT_ID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Delete", "DeleteStudent", new { id = item.STUDENT_ID }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Search", "Search", new { id = item.STUDENT_ID }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+
+</table>

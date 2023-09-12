@@ -1,0 +1,44 @@
+﻿@model WebApplication1.Models.REGISTRATION_SELECT_SP_Result
+@{
+    ViewBag.Title = "Login_Page";
+}
+
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <h1 class="text-danger text-center" style="font-weight : bold;">Sign in</h1>
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                     class="img-fluid" alt="Phone image">
+            </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <form method="post">
+                    <!-- UserName input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form1Example13">User name</label>
+                        @Html.TextBoxFor(model => model.USER_NAME, new { @class = "form-control form-control-lg" })
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="form1Example23">Password</label>
+                        @Html.TextBoxFor(model => model.USER_PASSWORD, new { @class = "form-control form-control-lg", @type = "password" })
+                    </div>
+
+                    <div class="mb-4">
+                        New User @Html.ActionLink("Register?", "Add_User", "Login")
+                    </div>
+
+                    <!-- Submit button -->
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login">
+                </form>
+                <div class="text-danger mt-2" style="font-size : 20px">
+                    @ViewBag.FailureMessage
+
+                    @Html.Raw(ViewBag.SuccessMessage)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

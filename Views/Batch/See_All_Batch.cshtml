@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebApplication1.Models.Batch_select>
+
+@{
+    ViewBag.Title = "See_All_Batch";
+}
+
+<h2 class="text-success text-center mb-2">LIST OF BATCHES</h2>
+@*<div class="d-flex justify-content-end text-black mb-2 mt-2" style="font-size : 20px;">
+    Welcome @Session["UserName"]
+</div>*@
+<div class="d-flex justify-content-between mb-2">
+    @Html.ActionLink("See All Student", "See_All_Student", "Student", "", new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Back To Home", "Course_List", "Course", "", new { @class = "btn btn-outline-danger" })
+</div>
+
+<br />
+
+@using (Html.BeginForm("See_All_Batch", "Batch", FormMethod.Get))
+{
+    <div class="d-flex">
+        @Html.TextBox("search", "", new { @class = "form-control", @style = "margin-right : 10px;",@placeholder ="Enter batch name" })
+        <input type="submit" value="Search" class="btn btn-outline-primary" />
+    </div>
+}
+
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.COURSE_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COURSE_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BATCH_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BATCH_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BATCH_DURATION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TEACHER_NAME)
+        </th>
+        <th>ACTION</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BATCH_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BATCH_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BATCH_DURATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEACHER_NAME)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit_Batch", new { id = item.BATCH_ID }, new { @class = "btn btn-info mr-2" })
+                @Html.ActionLink("Delete", "Delete_Batch", new { id = item.BATCH_ID }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Add Student", "AddStudent", "Student", new { id = item.BATCH_ID }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Students", "SeeStudent", "Student", new { id = item.BATCH_ID }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
+
+    }
+</table>
+
+@Html.Raw(TempData["Message"])

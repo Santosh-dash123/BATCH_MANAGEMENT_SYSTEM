@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebApplication1.Models.SEE_SPECIFIC_BATCHES_Result>
+
+@{
+    ViewBag.Title = "SeeBatch";
+}
+
+<h2 class="text-success text-center mb-2">LIST OF SPECIFIC BATCHES</h2>
+@*<div class="d-flex justify-content-end text-black mb-2 mt-2" style="font-size : 20px;">
+    Welcome @Session["UserName"]
+</div>*@
+<div class="d-flex justify-content-between mb-2">
+    @Html.ActionLink("See All Student", "See_All_Student", "Student", "", new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Back To Home", "Course_List", "Course", "", new { @class = "btn btn-outline-danger" })
+</div>
+
+<hr />
+<div class="text-danger text-uppercase text-center fs-4" style="color : brown;">
+    @ViewBag.no_of_batch_present
+</div>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.COURSE_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BATCH_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BATCH_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BATCH_DURATION)
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BATCH_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BATCH_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BATCH_DURATION)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit_Batch", new { id = item.BATCH_ID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Delete", "Delete_Batch", new { id = item.BATCH_ID }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Add Student", "AddStudent", "Student", new { id = item.BATCH_ID }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+
+</table>

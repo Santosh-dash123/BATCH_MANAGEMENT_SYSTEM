@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("BATCH MANAGEMENT SYSTEM", "Home", "Login", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Home", "Home", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("About", "About", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (@Session["UserName"] == null)
+                    {
+                        <li>@Html.ActionLink("Register", "Add_User", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @{
+                        if (Session["UserName"] == null)
+                        {
+                            <li>@Html.ActionLink("Login", "Login_Page", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Logout", "Logout", "Login", "", new { @class = "nav-link" })</li>
+                        }
+
+
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid body-content">
+        @{
+            if (Session["UserName"] != null)
+            {
+                <h2 class="text-center fs-2 text-danger">&#129409; @Session["UserName"] &#129409;</h2>
+            }
+        }
+        <br />
+        @RenderBody()
+        <div class="d-flex justify-content-end" style="margin-bottom : 5px;">
+            <button class="btn btn-dark" onclick="window.scrollTo(top);">&#8593;</button>
+        </div>
+    </div>
+
+    <footer style="margin-top: auto; color: white; background-color: #696969; font-size: 20px; text-align: center; padding-top: 10px; padding-bottom : 0px;">
+        <p>BATCH MANAGEMENT SYSTEM &copy; @DateTime.Now.Year - copyright by <a  href="https://microsoft.com/" target="_blank" >https://microsoft.com/</a></p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

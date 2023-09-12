@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<style>
+    #gsbtn:hover
+    {
+        color : white;
+        background-color : royalblue;
+        transition : 0.2s ease-in;
+    }
+</style>
+<div class="container mt-5">
+    @*<div class="d-flex justify-content-center">
+        <img src="~/Views/Images/batch.jpg" alt="photo" height="200" width="500" />
+    </div>*@
+    <div class="text-center">
+            <h1 class="text-danger" style="font-weight : bold;">Welcome to Batch Management System</h1>
+            <p>Manage your batches and students efficiently with our easy-to-use Batch Management System.</p>
+            <p>@Html.ActionLink("Get Started", "Login_Page", "Login", new {@class = "btn btn-primary",@id = "gsbtn"})</p>
+    </div>
+</div>

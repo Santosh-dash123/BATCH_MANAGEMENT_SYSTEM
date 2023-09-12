@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebApplication1.Models.COURSE_SELECT_SP_Result>
+
+@{
+    ViewBag.Title = "Course_List";
+}
+
+<h2 class="text-success text-center mb-2">LIST OF COURSE</h2>
+
+@*<div class="d-flex justify-content-end text-black mb-2 mt-2" style="font-size : 20px;">
+    Welcome @Session["UserName"]
+</div>*@
+<div class="d-flex justify-content-between mb-2">
+    @Html.ActionLink("Create New Course", "Add_Course", "", new { @class = "btn btn-primary" })
+    @Html.ActionLink("See All Batch", "See_All_Batch", "Batch", "", new { @class = "btn btn-secondary" })
+    @Html.ActionLink("See All Student", "See_All_Student", "Student", "", new { @class = "btn btn-secondary" })
+</div>
+
+<br/>
+
+@using (Html.BeginForm("Course_List","Course",FormMethod.Get))
+{
+    <text>Search By : </text>@Html.RadioButton("searchby", "coursename",true)<text>&nbsp;Course name</text>
+    @Html.RadioButton("searchby", "teachername") <text>Teacher name</text>
+    <br />
+    <div class="d-flex">
+        @Html.TextBox("search", "",new {@class = "form-control",@style="margin-right : 10px;"})
+        <input type="submit" value="Search" class="btn btn-outline-primary" />
+    </div>
+}
+
+<hr/>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.COURSE_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COURSE_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TEACHER_NAME)
+        </th>
+        <th>ACTION</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEACHER_NAME)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit_Course", new { id = item.COURSE_ID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Delete", "Delete_Course", new { id = item.COURSE_ID }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Add Batch", "AddBatch", "Batch", new { id = item.COURSE_ID }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Batches", "SeeBatch", "Batch", new { id = item.COURSE_ID }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
+    }
+
+</table>

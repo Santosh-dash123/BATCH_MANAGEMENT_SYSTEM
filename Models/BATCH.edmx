@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BATCH_MANAGEMENT_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BATCH">
+          <Key>
+            <PropertyRef Name="BATCH_ID" />
+          </Key>
+          <Property Name="COURSE_ID" Type="int" />
+          <Property Name="BATCH_ID" Type="int" Nullable="false" />
+          <Property Name="BATCH_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="BATCH_DURATION" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="COURSE">
+          <Key>
+            <PropertyRef Name="COURSE_ID" />
+          </Key>
+          <Property Name="COURSE_ID" Type="int" Nullable="false" />
+          <Property Name="COURSE_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="TEACHER_NAME" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="STUDENT_ID" />
+          </Key>
+          <Property Name="BATCH_ID" Type="int" />
+          <Property Name="STUDENT_ID" Type="int" Nullable="false" />
+          <Property Name="STUDENT_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="STUDENT_AGE" Type="int" />
+          <Property Name="STUDENT_EMAILID" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__BATCH__COURSE_ID__4E88ABD4">
+          <End Role="COURSE" Type="Self.COURSE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BATCH" Type="Self.BATCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COURSE">
+              <PropertyRef Name="COURSE_ID" />
+            </Principal>
+            <Dependent Role="BATCH">
+              <PropertyRef Name="COURSE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STUDENT__BATCH_I__5165187F">
+          <End Role="BATCH" Type="Self.BATCH" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCH">
+              <PropertyRef Name="BATCH_ID" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="BATCH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ADD_USER_MESSAGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NAME" Type="varchar" Mode="In" />
+          <Parameter Name="EMAIL" Type="varchar" Mode="In" />
+          <Parameter Name="MESSAGE" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="BATCH_ADD_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="COURSE_ID" Type="int" Mode="In" />
+          <Parameter Name="BATCH_ID" Type="int" Mode="In" />
+          <Parameter Name="BATCH_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="BATCH_DURATION" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="BATCH_DELETE_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BATCH_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BATCH_SELECT_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BATCH_UPDATE_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BATCH_ID" Type="int" Mode="In" />
+          <Parameter Name="BATCH_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="BATCH_DURATION" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="COURSE_ADD_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="COURSE_ID" Type="int" Mode="In" />
+          <Parameter Name="COURSE_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="TEACHER_NAME" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="COURSE_DELETE_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="COURSE_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="COURSE_SELECT_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="COURSE_UPDATE_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="COURSE_ID" Type="int" Mode="In" />
+          <Parameter Name="COURSE_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="TEACHER_NAME" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="REGISTRATION_ADD_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="USER_PASSWORD" Type="varchar" Mode="In" />
+          <Parameter Name="USER_EMAIL" Type="varchar" Mode="In" />
+          <Parameter Name="USER_PHNNO" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="REGISTRATION_SELECT_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SEE_NAME" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="USER_PASSWORD" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SEE_NO_OF_STUDENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BATCH_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SEE_SPECIFIC_BATCHES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SEE_SPECIFIC_STUDENTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="STUDENT_ADD_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BATCH_ID" Type="int" Mode="In" />
+          <Parameter Name="STUDENT_ID" Type="int" Mode="In" />
+          <Parameter Name="STUDENT_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="STUDENT_AGE" Type="int" Mode="In" />
+          <Parameter Name="STUDENT_EMAILID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="STUDENT_DELETE_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STUDENT_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="STUDENT_SELECT_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="STUDENT_UPDATE_SP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STUDENT_ID" Type="int" Mode="In" />
+          <Parameter Name="STUDENT_NAME" Type="varchar" Mode="In" />
+          <Parameter Name="STUDENT_AGE" Type="int" Mode="In" />
+          <Parameter Name="STUDENT_EMAILID" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="BATCH_MANAGEMENT_DBModelStoreContainer">
+          <EntitySet Name="BATCH" EntityType="Self.BATCH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COURSE" EntityType="Self.COURSE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BATCH__COURSE_ID__4E88ABD4" Association="Self.FK__BATCH__COURSE_ID__4E88ABD4">
+            <End Role="COURSE" EntitySet="COURSE" />
+            <End Role="BATCH" EntitySet="BATCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STUDENT__BATCH_I__5165187F" Association="Self.FK__STUDENT__BATCH_I__5165187F">
+            <End Role="BATCH" EntitySet="BATCH" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BATCH_MANAGEMENT_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BATCH">
+          <Key>
+            <PropertyRef Name="BATCH_ID" />
+          </Key>
+          <Property Name="COURSE_ID" Type="Int32" />
+          <Property Name="BATCH_ID" Type="Int32" Nullable="false" />
+          <Property Name="BATCH_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BATCH_DURATION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="COURSE" Relationship="Self.FK__BATCH__COURSE_ID__4E88ABD4" FromRole="BATCH" ToRole="COURSE" />
+          <NavigationProperty Name="STUDENTs" Relationship="Self.FK__STUDENT__BATCH_I__5165187F" FromRole="BATCH" ToRole="STUDENT" />
+        </EntityType>
+        <EntityType Name="COURSE">
+          <Key>
+            <PropertyRef Name="COURSE_ID" />
+          </Key>
+          <Property Name="COURSE_ID" Type="Int32" Nullable="false" />
+          <Property Name="COURSE_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TEACHER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BATCHes" Relationship="Self.FK__BATCH__COURSE_ID__4E88ABD4" FromRole="COURSE" ToRole="BATCH" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="STUDENT_ID" />
+          </Key>
+          <Property Name="BATCH_ID" Type="Int32" />
+          <Property Name="STUDENT_ID" Type="Int32" Nullable="false" />
+          <Property Name="STUDENT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STUDENT_AGE" Type="Int32" />
+          <Property Name="STUDENT_EMAILID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BATCH" Relationship="Self.FK__STUDENT__BATCH_I__5165187F" FromRole="STUDENT" ToRole="BATCH" />
+        </EntityType>
+        <Association Name="FK__BATCH__COURSE_ID__4E88ABD4">
+          <End Role="COURSE" Type="Self.COURSE" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BATCH" Type="Self.BATCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COURSE">
+              <PropertyRef Name="COURSE_ID" />
+            </Principal>
+            <Dependent Role="BATCH">
+              <PropertyRef Name="COURSE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STUDENT__BATCH_I__5165187F">
+          <End Role="BATCH" Type="Self.BATCH" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BATCH">
+              <PropertyRef Name="BATCH_ID" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="BATCH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BATCH_MANAGEMENT_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BATCHes" EntityType="Self.BATCH" />
+          <EntitySet Name="COURSEs" EntityType="Self.COURSE" />
+          <EntitySet Name="STUDENTs" EntityType="Self.STUDENT" />
+          <AssociationSet Name="FK__BATCH__COURSE_ID__4E88ABD4" Association="Self.FK__BATCH__COURSE_ID__4E88ABD4">
+            <End Role="COURSE" EntitySet="COURSEs" />
+            <End Role="BATCH" EntitySet="BATCHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STUDENT__BATCH_I__5165187F" Association="Self.FK__STUDENT__BATCH_I__5165187F">
+            <End Role="BATCH" EntitySet="BATCHes" />
+            <End Role="STUDENT" EntitySet="STUDENTs" />
+          </AssociationSet>
+          <FunctionImport Name="BATCH_ADD_SP">
+            <Parameter Name="COURSE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BATCH_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BATCH_NAME" Mode="In" Type="String" />
+            <Parameter Name="BATCH_DURATION" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BATCH_DELETE_SP">
+          <Parameter Name="BATCH_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BATCH_SELECT_SP" ReturnType="Collection(BATCH_MANAGEMENT_DBModel.BATCH_SELECT_SP_Result)" />
+          <FunctionImport Name="BATCH_UPDATE_SP">
+            <Parameter Name="BATCH_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BATCH_NAME" Mode="In" Type="String" />
+            <Parameter Name="BATCH_DURATION" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="COURSE_ADD_SP">
+            <Parameter Name="COURSE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="COURSE_NAME" Mode="In" Type="String" />
+            <Parameter Name="TEACHER_NAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="COURSE_DELETE_SP">
+          <Parameter Name="COURSE_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="COURSE_SELECT_SP" ReturnType="Collection(BATCH_MANAGEMENT_DBModel.COURSE_SELECT_SP_Result)" />
+          <FunctionImport Name="COURSE_UPDATE_SP">
+            <Parameter Name="COURSE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="COURSE_NAME" Mode="In" Type="String" />
+            <Parameter Name="TEACHER_NAME" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="STUDENT_ADD_SP">
+            <Parameter Name="BATCH_ID" Mode="In" Type="Int32" />
+            <Parameter Name="STUDENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="STUDENT_NAME" Mode="In" Type="String" />
+            <Parameter Name="STUDENT_AGE" Mode="In" Type="Int32" />
+            <Parameter Name="STUDENT_EMAILID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="STUDENT_DELETE_SP">
+          <Parameter Name="STUDENT_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="STUDENT_SELECT_SP" ReturnType="Collection(BATCH_MANAGEMENT_DBModel.STUDENT_SELECT_SP_Result)" />
+          <FunctionImport Name="STUDENT_UPDATE_SP">
+            <Parameter Name="STUDENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="STUDENT_NAME" Mode="In" Type="String" />
+            <Parameter Name="STUDENT_AGE" Mode="In" Type="Int32" />
+            <Parameter Name="STUDENT_EMAILID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="REGISTRATION_ADD_SP">
+            <Parameter Name="USER_NAME" Mode="In" Type="String" />
+            <Parameter Name="USER_PASSWORD" Mode="In" Type="String" />
+            <Parameter Name="USER_EMAIL" Mode="In" Type="String" />
+            <Parameter Name="USER_PHNNO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="REGISTRATION_SELECT_SP" ReturnType="Collection(BATCH_MANAGEMENT_DBModel.REGISTRATION_SELECT_SP_Result)" />
+          <FunctionImport Name="SEE_NAME" ReturnType="Collection(BATCH_MANAGEMENT_DBModel.SEE_NAME_Result)">
+            <Parameter Name="USER_NAME" Mode="In" Type="String" />
+            <Parameter Name="USER_PASSWORD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SEE_NO_OF_STUDENT" ReturnType="Collection(Int32)">
+          <Parameter Name="BATCH_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ADD_USER_MESSAGE">
+            <Parameter Name="NAME" Mode="In" Type="String" />
+            <Parameter Name="EMAIL" Mode="In" Type="String" />
+            <Parameter Name="MESSAGE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SEE_SPECIFIC_BATCHES" ReturnType="Collection(BATCH_MANAGEMENT_DBModel.SEE_SPECIFIC_BATCHES_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SEE_SPECIFIC_STUDENTS" ReturnType="Collection(BATCH_MANAGEMENT_DBModel.SEE_SPECIFIC_STUDENTS_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="BATCH_SELECT_SP_Result">
+          <Property Type="Int32" Name="COURSE_ID" Nullable="true" />
+          <Property Type="Int32" Name="BATCH_ID" Nullable="false" />
+          <Property Type="String" Name="BATCH_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BATCH_DURATION" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="COURSE_SELECT_SP_Result">
+          <Property Type="Int32" Name="COURSE_ID" Nullable="false" />
+          <Property Type="String" Name="COURSE_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TEACHER_NAME" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="STUDENT_SELECT_SP_Result">
+          <Property Type="Int32" Name="BATCH_ID" Nullable="true" />
+          <Property Type="Int32" Name="STUDENT_ID" Nullable="false" />
+          <Property Type="String" Name="STUDENT_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="STUDENT_AGE" Nullable="true" />
+          <Property Type="String" Name="STUDENT_EMAILID" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="REGISTRATION_SELECT_SP_Result">
+          <Property Type="String" Name="USER_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="USER_PASSWORD" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SEE_NAME_Result">
+          <Property Type="String" Name="USER_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="USER_PASSWORD" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SEE_SPECIFIC_BATCHES_Result">
+          <Property Type="Int32" Name="COURSE_ID" Nullable="true" />
+          <Property Type="Int32" Name="BATCH_ID" Nullable="false" />
+          <Property Type="String" Name="BATCH_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="BATCH_DURATION" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SEE_SPECIFIC_STUDENTS_Result">
+          <Property Type="Int32" Name="BATCH_ID" Nullable="true" />
+          <Property Type="Int32" Name="STUDENT_ID" Nullable="false" />
+          <Property Type="String" Name="STUDENT_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="STUDENT_AGE" Nullable="true" />
+          <Property Type="String" Name="STUDENT_EMAILID" Nullable="true" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BATCH_MANAGEMENT_DBModelStoreContainer" CdmEntityContainer="BATCH_MANAGEMENT_DBEntities">
+          <EntitySetMapping Name="BATCHes">
+            <EntityTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.BATCH">
+              <MappingFragment StoreEntitySet="BATCH">
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="BATCH_ID" ColumnName="BATCH_ID" />
+                <ScalarProperty Name="BATCH_NAME" ColumnName="BATCH_NAME" />
+                <ScalarProperty Name="BATCH_DURATION" ColumnName="BATCH_DURATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COURSEs">
+            <EntityTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.COURSE">
+              <MappingFragment StoreEntitySet="COURSE">
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="COURSE_NAME" ColumnName="COURSE_NAME" />
+                <ScalarProperty Name="TEACHER_NAME" ColumnName="TEACHER_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STUDENTs">
+            <EntityTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.STUDENT">
+              <MappingFragment StoreEntitySet="STUDENT">
+                <ScalarProperty Name="BATCH_ID" ColumnName="BATCH_ID" />
+                <ScalarProperty Name="STUDENT_ID" ColumnName="STUDENT_ID" />
+                <ScalarProperty Name="STUDENT_NAME" ColumnName="STUDENT_NAME" />
+                <ScalarProperty Name="STUDENT_AGE" ColumnName="STUDENT_AGE" />
+                <ScalarProperty Name="STUDENT_EMAILID" ColumnName="STUDENT_EMAILID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BATCH_ADD_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.BATCH_ADD_SP" />
+          <FunctionImportMapping FunctionImportName="BATCH_DELETE_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.BATCH_DELETE_SP" />
+          <FunctionImportMapping FunctionImportName="BATCH_SELECT_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.BATCH_SELECT_SP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.BATCH_SELECT_SP_Result">
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="BATCH_ID" ColumnName="BATCH_ID" />
+                <ScalarProperty Name="BATCH_NAME" ColumnName="BATCH_NAME" />
+                <ScalarProperty Name="BATCH_DURATION" ColumnName="BATCH_DURATION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BATCH_UPDATE_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.BATCH_UPDATE_SP" />
+          <FunctionImportMapping FunctionImportName="COURSE_ADD_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.COURSE_ADD_SP" />
+          <FunctionImportMapping FunctionImportName="COURSE_DELETE_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.COURSE_DELETE_SP" />
+          <FunctionImportMapping FunctionImportName="COURSE_SELECT_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.COURSE_SELECT_SP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.COURSE_SELECT_SP_Result">
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="COURSE_NAME" ColumnName="COURSE_NAME" />
+                <ScalarProperty Name="TEACHER_NAME" ColumnName="TEACHER_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="COURSE_UPDATE_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.COURSE_UPDATE_SP" />
+          <FunctionImportMapping FunctionImportName="STUDENT_ADD_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.STUDENT_ADD_SP" />
+          <FunctionImportMapping FunctionImportName="STUDENT_DELETE_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.STUDENT_DELETE_SP" />
+          <FunctionImportMapping FunctionImportName="STUDENT_SELECT_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.STUDENT_SELECT_SP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.STUDENT_SELECT_SP_Result">
+                <ScalarProperty Name="BATCH_ID" ColumnName="BATCH_ID" />
+                <ScalarProperty Name="STUDENT_ID" ColumnName="STUDENT_ID" />
+                <ScalarProperty Name="STUDENT_NAME" ColumnName="STUDENT_NAME" />
+                <ScalarProperty Name="STUDENT_AGE" ColumnName="STUDENT_AGE" />
+                <ScalarProperty Name="STUDENT_EMAILID" ColumnName="STUDENT_EMAILID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="STUDENT_UPDATE_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.STUDENT_UPDATE_SP" />
+          <FunctionImportMapping FunctionImportName="REGISTRATION_ADD_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.REGISTRATION_ADD_SP" />
+          <FunctionImportMapping FunctionImportName="REGISTRATION_SELECT_SP" FunctionName="BATCH_MANAGEMENT_DBModel.Store.REGISTRATION_SELECT_SP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.REGISTRATION_SELECT_SP_Result">
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SEE_NAME" FunctionName="BATCH_MANAGEMENT_DBModel.Store.SEE_NAME">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.SEE_NAME_Result">
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SEE_NO_OF_STUDENT" FunctionName="BATCH_MANAGEMENT_DBModel.Store.SEE_NO_OF_STUDENT" />
+          <FunctionImportMapping FunctionImportName="ADD_USER_MESSAGE" FunctionName="BATCH_MANAGEMENT_DBModel.Store.ADD_USER_MESSAGE" />
+          <FunctionImportMapping FunctionImportName="SEE_SPECIFIC_BATCHES" FunctionName="BATCH_MANAGEMENT_DBModel.Store.SEE_SPECIFIC_BATCHES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.SEE_SPECIFIC_BATCHES_Result">
+                <ScalarProperty Name="COURSE_ID" ColumnName="COURSE_ID" />
+                <ScalarProperty Name="BATCH_ID" ColumnName="BATCH_ID" />
+                <ScalarProperty Name="BATCH_NAME" ColumnName="BATCH_NAME" />
+                <ScalarProperty Name="BATCH_DURATION" ColumnName="BATCH_DURATION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SEE_SPECIFIC_STUDENTS" FunctionName="BATCH_MANAGEMENT_DBModel.Store.SEE_SPECIFIC_STUDENTS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BATCH_MANAGEMENT_DBModel.SEE_SPECIFIC_STUDENTS_Result">
+                <ScalarProperty Name="BATCH_ID" ColumnName="BATCH_ID" />
+                <ScalarProperty Name="STUDENT_ID" ColumnName="STUDENT_ID" />
+                <ScalarProperty Name="STUDENT_NAME" ColumnName="STUDENT_NAME" />
+                <ScalarProperty Name="STUDENT_AGE" ColumnName="STUDENT_AGE" />
+                <ScalarProperty Name="STUDENT_EMAILID" ColumnName="STUDENT_EMAILID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

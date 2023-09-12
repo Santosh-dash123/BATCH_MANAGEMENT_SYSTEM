@@ -1,0 +1,81 @@
+﻿@model WebApplication1.Models.STUDENT
+
+@{
+    ViewBag.Title = "EditStudent";
+}
+
+<h2>Edit Student</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.BATCH_ID, "BATCH_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            @Html.EditorFor(model => model.BATCH_ID,null,new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.BATCH_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.STUDENT_ID, "STUDENT_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            @Html.EditorFor(model => model.STUDENT_ID, null, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.STUDENT_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="batch_name" class="control-label col-md-2">BATCH NAME</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" value="@ViewBag.batch_name" readonly="readonly" id="batch_name"/> 
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.STUDENT_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.STUDENT_NAME, new { htmlAttributes = new { @class = "form-control"} })
+            @Html.ValidationMessageFor(model => model.STUDENT_NAME, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.STUDENT_AGE, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.STUDENT_AGE, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.STUDENT_AGE, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.STUDENT_EMAILID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.STUDENT_EMAILID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.STUDENT_EMAILID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 mt-2">
+            <span>
+                <input type="submit" value="Edit Student" onclick="return confirm('Are you sure to edit that student ?');" class="btn btn-outline-success mr-2" />
+                @Html.ActionLink("Back To Home", "See_All_Student","Student", "", new { @class = "btn btn-danger" })
+            </span>
+        </div>
+    </div>
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

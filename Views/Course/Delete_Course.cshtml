@@ -1,0 +1,47 @@
+﻿@model WebApplication1.Models.COURSE
+
+@{
+    ViewBag.Title = "Delete_Course";
+}
+
+<h2>Delete Course</h2>
+<br/>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.COURSE_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COURSE_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COURSE_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COURSE_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TEACHER_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TEACHER_NAME)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete Course" onclick="return confirm('Are you sure you want to delete this course?')" class="btn btn-outline-success" /> 
+            @Html.ActionLink("Back To Home","Course_List", "", new {@class = "btn btn-danger"})
+        </div>
+    }
+</div>
